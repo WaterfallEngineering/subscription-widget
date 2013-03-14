@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="/node_modules/mocha/mocha.css" />
+  <script src="/node_modules/expect.js/expect.js"></script>
+  <script src="/node_modules/mocha/mocha.js"></script>
+  <script src="/node_modules/sinon/pkg/sinon.js"></script>
+  <script src="/node_modules/q/q.js"></script>
+  <script src="/test/jquery.js"></script>
+  <style>
+  #container {
+    position: absolute;
+    top: 70px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+  #mocha, #sandbox {
+    position: absolute;
+    overflow: scroll;
+    height: 100%;
+    width: 49%;
+    vertical-align: top;
+  }
+
+  #sandbox {
+    right: 0;
+  }
+
+  #sandbox iframe {
+    border: 1px solid #bbb;
+    width: 99%;
+    min-height: 500px;
+  }
+
+  #mocha li.test.fail {
+    max-width: 100%;
+    overflow: scroll;
+  }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="mocha"></div>
+    <div id="sandbox">
+      <iframe></iframe>
+    </div>
+  </div>
+  <script>
+  mocha.setup('bdd');
+  </script>
+  <script src="/node_modules/requirejs/require.js"
+    data-main="/test/spec/main.js"
+    >
+  </script>
+</body>
+</html>

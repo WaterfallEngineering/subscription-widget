@@ -1,0 +1,35 @@
+.waterfall-subscription-widget {
+  .width-in-digits(@digits) {
+    width: 0.6em * @digits;
+  }
+
+  label > * {
+    margin-right: 0.5em;
+  }
+
+  input.waterfall-subscription-widget-area-code,
+  input.waterfall-subscription-widget-prefix {
+    text-align: center;
+    .width-in-digits(3);
+  }
+
+  input.waterfall-subscription-widget-line-no {
+    text-align: center;
+    .width-in-digits(4);
+  }
+
+  iframe {
+    width: 0px;
+    height: 0px;
+    display: none;
+  }
+
+  .waterfall-subscription-widget-result {
+    display: none;
+
+    &.waterfall-subscription-widget-success,
+    &.waterfall-subscription-widget-failure {
+      display: block;
+    }
+  }
+}
