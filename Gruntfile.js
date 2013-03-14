@@ -1,6 +1,5 @@
 /*global module:false*/
 module.exports = function(grunt) {
-
   // Project configuration.
   grunt.initConfig({
     // Metadata.
@@ -47,7 +46,11 @@ module.exports = function(grunt) {
       }
     },
 
-    render: {
+    describe: {
+      dirtyMark: ''
+    },
+
+    'render': {
       'snippet': {
         target: '<%= build.root %>/snippet.html',
         source: './src/snippet.template',
@@ -82,14 +85,21 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-requirejs');
+  grunt.loadNpmTasks('grunt-git-describe');
 
   grunt.registerMultiTask('render', 'Render a static asset from a template.',
     function renderTask() {
+      grunt.config.requires('meta.version');
+
       grunt.file.write(this.data.target,
         grunt.template.process(grunt.file.read(this.data.source), {
-          data: this.data
+          data: grunt.util._.extend({
+            version: grunt.config.get('meta.version')
+          }, this.data)
         }));
     });
+
+  grunt.registerTask('build', ['describe', 'render']);
 
   // Default task.
   grunt.registerTask('default', ['jshint']);

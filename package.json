@@ -12,7 +12,8 @@
     "grunt-browserstack": "~0.1.0",
     "grunt-requirejs": "~0.3.3",
     "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-watch": "~0.3.1"
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-git-describe": "git://github.com/WaterfallEngineering/grunt-git-describe.git"
   },
   "license": "MIT"
 }
