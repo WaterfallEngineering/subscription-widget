@@ -1,0 +1,18 @@
+{
+  "name": "waterfall-subscription-widget",
+  "version": "0.1.0",
+  "author": "Lon Ingram <lon@waterfallmobile.com>",
+  "description": "HTML widget that allows users to subscribe to lists",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "mocha": "~1.8.2",
+    "expect": "0.0.2",
+    "sinon": "~1.6.0",
+    "requirejs": "~2.1.5",
+    "grunt-browserstack": "~0.1.0",
+    "grunt-requirejs": "~0.3.3",
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-watch": "~0.3.1"
+  },
+  "license": "MIT"
+}

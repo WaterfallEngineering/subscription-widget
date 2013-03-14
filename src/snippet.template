@@ -1,0 +1,10 @@
+<script data-waterfall-listid='<%= scout.listIdToken %>'>
+(function (window) {
+  var document = window.document;
+  var script = document.createElement('script');
+  var sibling = document.getElementsByTagName('script')[0];
+  script.src = '<%= scout.url.path  + scout.url.file %>';
+  script.async = true;
+  sibling.parentNode.insertBefore(script, sibling);
+}(this));
+</script>
