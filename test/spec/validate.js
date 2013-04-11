@@ -8,7 +8,7 @@ function (util) {
 
     describe('when the widget is first rendered', function () {
       before(function (done) {
-        iframe.src = '/test/assets/test-validate.html?initial-state';
+        iframe.src = 'assets/test-validate.html?initial-state';
         util.waitOnFrame(iframe, function () {
           frameDoc = iframe.contentDocument;
           done();
@@ -30,7 +30,7 @@ function (util) {
       var DELAY = 20;
 
       before(function (done) {
-        iframe.src = '/test/assets/test-validate.html?blur';
+        iframe.src = 'assets/test-validate.html?blur';
         util.waitOnFrame(iframe, function () {
           frameDoc = iframe.contentDocument;
           done();
@@ -178,7 +178,7 @@ function (util) {
 
     describe('on submit', function () {
       before(function (done) {
-        iframe.src = '/test/assets/test-validate.html?submit';
+        iframe.src = 'assets/test-validate.html?submit';
         util.waitOnFrame(iframe, function () {
           frameDoc = iframe.contentDocument;
           done();

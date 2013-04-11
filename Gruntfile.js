@@ -95,7 +95,7 @@ module.exports = function(grunt) {
         target: '<%= build.testRoot %>/snippet.html',
         source: '<%= render.snippet.source %>',
         url: {
-          path: '/<%= build.testRoot %>/',
+          path: '',
           file: '<%= render.snippet.url.file %>'
         },
         listIdToken: '<%= render.snippet.listIdToken %>'
@@ -105,7 +105,7 @@ module.exports = function(grunt) {
         target: '<%= build.testRoot %>/submit/snippet.html',
         source: '<%= render.snippet.source %>',
         url: {
-          path: '/<%= build.testRoot %>/submit/',
+          path: 'submit/',
           file: '<%= render.snippet.url.file %>'
         },
         listIdToken: '<%= render.snippet.listIdToken %>'
@@ -124,7 +124,7 @@ module.exports = function(grunt) {
         target: '<%= build.testRoot %>/waterfall-subscription-widget.scout.js',
         source: '<%= render.scout.source %>',
         url: {
-          path: '/<%= build.testRoot %>/',
+          path: '',
           file: '<%= render.scout.url.file %>'
         }
       },
@@ -134,7 +134,7 @@ module.exports = function(grunt) {
           'waterfall-subscription-widget.scout.js',
         source: '<%= render.scout.source %>',
         url: {
-          path: '/<%= build.testRoot %>/submit/',
+          path: 'submit/',
           file: '<%= render.scout.url.file %>'
         }
       },
@@ -156,7 +156,7 @@ module.exports = function(grunt) {
         source: '<%= render.widget.source %>',
         widget: {
           classPrefix: '<%= render.widget.widget.classPrefix %>',
-          iframeUrl: '/test/assets/subscribe-frame.html'
+          iframeUrl: 'subscribe-frame.html'
         }
       },
 
@@ -167,7 +167,7 @@ module.exports = function(grunt) {
         widget: {
           classPrefix: '<%= render.widget.widget.classPrefix %>',
           iframeUrl:
-            '/test/assets/submit/subscribe-frame.html'
+            'submit/subscribe-frame.html'
         }
       },
 

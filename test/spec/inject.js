@@ -6,7 +6,7 @@ function (util) {
     var iframe = document.querySelector('iframe');
 
     before(function (done) {
-      iframe.src = '/test/assets/test-inject.html?css';
+      iframe.src = 'assets/test-inject.html?css';
       util.waitOnFrame(iframe, done);
     });
 

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>Mocha Tests</title>
-  <link rel="stylesheet" href="/test/mocha.css" />
-  <script src="/test/expect.js"></script>
-  <script src="/test/mocha.js"></script>
-  <script src="/test/sinon.js"></script>
+  <link rel="stylesheet" href="mocha.css" />
+  <script src="expect.js"></script>
+  <script src="mocha.js"></script>
+  <script src="sinon.js"></script>
   <script>
   if (process && !process.nextTick) {
     process.nextTick = function nextTickByTimeout(fn) {
@@ -14,8 +14,8 @@
     };
   }
   </script>
-  <script src="/test/q.js"></script>
-  <script src="/test/jquery.js"></script>
+  <script src="q.js"></script>
+  <script src="jquery.js"></script>
   <style>
   #container {
     position: absolute;
@@ -59,8 +59,8 @@
   <script>
   mocha.setup('bdd');
   </script>
-  <script src="/test/require.js"
-    data-main="/test/spec/main.js"
+  <script src="require.js"
+    data-main="spec/main.js"
     >
   </script>
 </body>

@@ -10,7 +10,7 @@ function (util) {
     this.timeout(10000);
 
     beforeEach(function (done) {
-      iframe.src = '/test/assets/test-submit.html';
+      iframe.src = 'assets/test-submit.html';
       util.waitOnFrame(iframe, function () {
         frameDoc = iframe.contentDocument;
         frameWin = iframe.contentWindow;
