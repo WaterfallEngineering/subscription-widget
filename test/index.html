@@ -7,6 +7,13 @@
   <script src="/node_modules/expect.js/expect.js"></script>
   <script src="/node_modules/mocha/mocha.js"></script>
   <script src="/node_modules/sinon/pkg/sinon.js"></script>
+  <script>
+  if (process && !process.nextTick) {
+    process.nextTick = function nextTickByTimeout(fn) {
+      return setTimeout(fn, 0);
+    };
+  }
+  </script>
   <script src="/node_modules/q/q.js"></script>
   <script src="/test/jquery.js"></script>
   <style>
