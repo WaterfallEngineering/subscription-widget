@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Waterfall Subscribe Server Frame</title>
+</head>
+<body>
+  <script>
+  // This page is basically a postMessage echo server
+
+  window.onmessage = function (e) {
+    e.source.postMessage(JSON.stringify({
+        data: e.data,
+        origin: e.origin
+      }, e.origin));
+  };
+  </script>
+</body>
+</html>
