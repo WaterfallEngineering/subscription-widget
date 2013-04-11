@@ -1,0 +1,13 @@
+<script data-waterfall-listid='{{ listId }}'>
+/*jshint undef:false */
+(function (window) {
+  var document = window.document;
+  var script = document.createElement('script');
+  var sibling = document.getElementsByTagName('script')[0];
+  script.src = 'submit/waterfall-subscription-widget.scout.js';
+  script.async = true;
+  script.type = 'text/javascript';
+  sibling.parentNode.insertBefore(script, sibling);
+}(this));
+
+</script>
