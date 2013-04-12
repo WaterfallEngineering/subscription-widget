@@ -5,6 +5,77 @@
   <title>Waterfall Subscribe Server Frame</title>
 </head>
 <body>
+  <script>
+  var widgetId = location.hash.slice(1);
+
+  function send(message) {
+    parent.postMessage(JSON.stringify(message), '*');
+  }
+
+
+  if (parent) {
+    send({
+      type: 'ready',
+      id: widgetId
+    });
+  }
+
+  var handlers = {};
+
+  function onReadyStateChange(message, xhr) {
+    if (xhr.readyState !== XMLHttpRequest.DONE) {
+      return;
+    }
+
+    if (200 <= xhr.status && xhr.status < 300) {
+      send({
+        type: 'result',
+        success: true,
+        message: 'Successfully subscribed',
+        id: widgetId
+      });
+    } else {
+      send({
+        type: 'result',
+        success: false,
+        message: 'Subscription failed',
+        id: widgetId
+      });
+    }
+
+    xhr.onreadystatechange = null;
+  }
+
+  handlers.subscribe = function handleSubscribe(message) {
+    var xhr = new XMLHttpRequest();
+    var widgetId = message.widgetId;
+    var msisdn = message.mobileNumber;
+
+    if (!widgetId || !msisdn) {
+      return;
+    }
+
+    xhr.open('POST', '/api/v2/widget/' + widgetId + '/subscribe/' + msisdn);
+    xhr.addEventListener('readystatechange',
+      onReadyStateChange.bind(null, message, xhr));
+    xhr.send();
+  };
+
+  window.addEventListener('message', function (e) {
+    var message;
+
+    try {
+      message = JSON.parse(e.data);
+    } catch (e) {
+      // TODO: what here?
+      return;
+    }
+
+    if (handlers[message.type]) {
+      handlers[message.type](message);
+    }
+  });
+  </script>
 </body>
 </html>
 

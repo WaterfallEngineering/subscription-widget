@@ -8,7 +8,8 @@ require.config({
 define([
   './inject',
   './validate',
-  './submit'
+  './submit',
+  './subscribe-frame'
 ],
 function () {
   mocha.run();
