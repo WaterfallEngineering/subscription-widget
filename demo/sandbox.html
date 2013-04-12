@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Widget sandbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="waterfall-subscription-widget" data-waterfall-widgetid='123abc'>
+    </div>
+    <script data-waterfall-widgetid='123abc'>
+    /*jshint undef:false */
+    (function (window) {
+      var document = window.document;
+      var script = document.createElement('script');
+      var sibling = document.getElementsByTagName('script')[0];
+      script.src = 'waterfall-subscription-widget.scout.js';
+      script.async = true;
+      script.type = 'text/javascript';
+      sibling.parentNode.insertBefore(script, sibling);
+    }(this));
+    </script>
+  </body>
+</html>
