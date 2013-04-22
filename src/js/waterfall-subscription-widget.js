@@ -10,7 +10,7 @@ function (console, dom, inject) {
 
   var PREFIX = 'waterfall-subscription-widget';
   var ATTR_ROOT = 'data-waterfall-';
-  var LISTID_ATTR = ATTR_ROOT + 'listid';
+  var WIDGETID_ATTR = ATTR_ROOT + 'widgetid';
   var READY_ATTR = ATTR_ROOT + 'ready';
   var PENDING_NUMBER_ATTR = ATTR_ROOT + 'pending-mobile-number';
 
@@ -102,12 +102,12 @@ function (console, dom, inject) {
   function subscribe(widget) {
     var mobileNumber =
       widget.getAttribute(PENDING_NUMBER_ATTR);
-    var listId = widget.getAttribute(LISTID_ATTR);
+    var widgetId = widget.getAttribute(WIDGETID_ATTR);
     var frame = dom.qs(widget, 'iframe');
 
     frame.contentWindow.postMessage(JSON.stringify({
       type: 'subscribe',
-      listId: listId,
+      widgetId: widgetId,
       mobileNumber: mobileNumber
     }), frame.src);
 
@@ -238,23 +238,23 @@ function (console, dom, inject) {
     return;
   }
 
-  var listId = null;
+  var widgetId = null;
 
-  // To obtain the id of the list to subscribe to,
-  // 1) find first script with `data-waterfall-listid` attr (i.e. the script
+  // To obtain the id of the subscription widget,
+  // 1) find first script with `data-waterfall-widgetid` attr (i.e. the script
   //    that injected the scout file that injected this script)
-  var scriptEl = dom.qs('script[' + LISTID_ATTR + ']');
+  var scriptEl = dom.qs('script[' + WIDGETID_ATTR + ']');
 
   // 2) if none is found, crash
   if (!scriptEl) {
     console.error(PREFIX + ': could not find a script with a' +
-      '`data-waterfall-listid` attribute');
+      '`data-waterfall-widgetid` attribute');
     return;
   }
 
   // 3) get the id value and remove the attribute so other scripts don't use it
-  listId = scriptEl.getAttribute(LISTID_ATTR);
-  scriptEl.removeAttribute(LISTID_ATTR);
+  widgetId = scriptEl.getAttribute(WIDGETID_ATTR);
+  scriptEl.removeAttribute(WIDGETID_ATTR);
 
   if (document.readyState !== 'complete') {
     // wait for load, which is fine for our purposes

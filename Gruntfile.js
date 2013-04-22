@@ -74,7 +74,7 @@ module.exports = function(grunt) {
           path: '//waterfallmobile.com/widget/{{ widgetId }}/',
           file: 'waterfall-subscription-widget.scout.js'
         },
-        listIdToken: '{{ listId }}'
+        widgetIdToken: '{{ widgetId }}'
       },
 
       'snippet-test': {
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
           path: '',
           file: '<%= render.snippet.url.file %>'
         },
-        listIdToken: '<%= render.snippet.listIdToken %>'
+        widgetIdToken: '<%= render.snippet.widgetIdToken %>'
       },
 
       'submit/snippet-test': {
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
           path: 'submit/',
           file: '<%= render.snippet.url.file %>'
         },
-        listIdToken: '<%= render.snippet.listIdToken %>'
+        widgetIdToken: '<%= render.snippet.widgetIdToken %>'
       },
 
       'scout': {
@@ -202,7 +202,7 @@ module.exports = function(grunt) {
           head: '',
           body: '' +
             '<div class="waterfall-subscription-widget"' +
-              'data-waterfall-listid=123' +
+              'data-waterfall-widgetid=123' +
               '>' +
             '</div>' +
             '<%= grunt.file.read("test/assets/submit/snippet.html") %>'
