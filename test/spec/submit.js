@@ -143,7 +143,7 @@ function (util) {
           expect(messageSpy.callCount).to.be(1);
           data = JSON.parse(messageSpy.firstCall.args[0].originalEvent.data);
           expect(data.type).to.be('subscribe');
-          expect(data.listId).to.be('123');
+          expect(data.widgetId).to.be('123');
           expect(data.mobileNumber).to.be(areaCode + prefix + lineNo);
         });
 
@@ -245,7 +245,7 @@ function (util) {
 
           expect(messageSpy.callCount).to.be(1);
           data = JSON.parse(messageSpy.firstCall.args[0].originalEvent.data);
-          expect(data.listId).to.be('123');
+          expect(data.widgetId).to.be('123');
           expect(data.mobileNumber).to.be(areaCode + prefix + lineNo);
           done();
         }
