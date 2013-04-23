@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         target: '<%= build.root %>/snippet.html',
         source: './src/snippet.template',
         url: {
-          path: '//waterfallmobile.com/widget/{{ widgetId }}/',
+          path: '//threebeta.waterfallmobile.com/widget/',
           file: 'waterfall-subscription-widget.scout.js'
         },
         widgetIdToken: '{{ widgetId }}'
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
         target: '<%= build.root %>/waterfall-subscription-widget.scout.js',
         source: './src/js/async-include.js',
         url: {
-          path: '//waterfallmobile.com/widget/',
+          path: '//threebeta.waterfallmobile.com/widget/',
           file: 'waterfall-subscription-widget.<%= meta.version %>.js'
         }
       },
@@ -132,7 +132,7 @@ module.exports = function(grunt) {
         widget: {
           classPrefix: 'waterfall-subscription-widget',
           iframeUrl:
-            '//waterfall.com/widget/subscription-widget/subscribe-frame.html'
+            '//threebeta.waterfallmobile.com/widget/subscribe-frame.html'
         }
       },
 
