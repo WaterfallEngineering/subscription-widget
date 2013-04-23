@@ -25,7 +25,7 @@ $(function () {
       var frameWin = subscriptionFrame.contentWindow;
 
       if (!frameWin.sinon || !frameWin.sinon) {
-        setTimeout(waitForSinon, 0);
+        setTimeout(waitForSinon, 100);
         return;
       }
 
@@ -40,15 +40,15 @@ $(function () {
           req.respond(succeedsEl.is(':checked') ? 204 : 404, {}, '');
         });
         server.autoRespond = true;
-        console.log('DID IT BRO');
-      }, 100);
+        $(iframe).removeClass('hidden');
+      }, 500);
     }
 
     var sinon = frameDoc.createElement('script');
     sinon.src = '../test/sinon.js';
     frameDoc.body.appendChild(sinon);
 
-    setTimeout(waitForSinon, 0);
+    setTimeout(waitForSinon, 100);
   }
 
   var iframe = $('.sandbox')[0];
