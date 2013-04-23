@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Waterfall subscription widget demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="demo/css/index.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row-fluid">
+        <div class="hero-unit">
+          <h1>Waterfall subscription widget demo</h1>
+          <div class="well">
+            <div class="waterfall-subscription-widget"
+              data-waterfall-widgetid='517700750cf2e89f0e031204'
+              ></div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /container -->
+    <script data-waterfall-widgetid='517700750cf2e89f0e031204'>
+    /*jshint undef:false */
+    (function (window) {
+      var document = window.document;
+      var script = document.createElement('script');
+      var sibling = document.getElementsByTagName('script')[0];
+      script.src = '//threebeta.waterfallmobile.com/widget/waterfall-subscription-widget.scout.js';
+      script.async = true;
+      script.type = 'text/javascript';
+      sibling.parentNode.insertBefore(script, sibling);
+    }(this));
+    </script>
+  </body>
+</html>
