@@ -278,7 +278,16 @@ module.exports = function(grunt) {
     strings: {
       widget: {
         mobileNumber: {
-          label: 'Mobile Number:'
+          label: 'Mobile Number:',
+          areaCode: {
+            label: 'Area code'
+          },
+          prefix: {
+            label: 'Prefix'
+          },
+          lineNo: {
+            label: 'Line number'
+          }
         },
         signUpButton: {
           label: 'Sign Up'
