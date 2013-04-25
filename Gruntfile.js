@@ -1,5 +1,7 @@
 /*global module:false*/
 module.exports = function(grunt) {
+  var widgetId = grunt.option('widgetId') || 'abc123';
+
   // Project configuration.
   grunt.initConfig({
     // Metadata.
@@ -206,6 +208,20 @@ module.exports = function(grunt) {
               '>' +
             '</div>' +
             '<%= grunt.file.read("test/assets/submit/snippet.html") %>'
+        }
+      },
+
+      'test/demo': {
+        target: '<%= build.testRoot %>/demo.html',
+        source: '<%= build.testRoot %>/../target.template.html',
+        markup: {
+          head: '',
+          body: '' +
+            '<div class="waterfall-subscription-widget"' +
+              'data-waterfall-widgetid=' + widgetId +
+              '>' +
+            '</div>' +
+            '<%= grunt.file.read("test/assets/snippet.html") %>'
         }
       }
     },
