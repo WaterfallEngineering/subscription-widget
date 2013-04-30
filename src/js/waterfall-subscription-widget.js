@@ -32,13 +32,13 @@ function (console, dom, inject) {
   var inputsSelector = getSelector(' input');
 
   /*
-   * Test the value of an input against its `pattern` attribute
+   * Test the value of an input against its `data-pattern` attribute
    *
    * Return true if the value matches the pattern and false otherwise
    */
   var regexes = {};
   function isValid(el) {
-    var pattern = el.getAttribute('pattern');
+    var pattern = el.getAttribute('data-pattern');
     if (!regexes[pattern]) {
       regexes[pattern] = new RegExp(pattern);
     }
