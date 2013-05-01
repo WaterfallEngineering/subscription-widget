@@ -1,0 +1,44 @@
+<div class="{{ classPrefix }}-root">
+  <fieldset>
+    <legend>{{{ mobileNumberLegend }}}</legend>
+    <div class="{{ classPrefix }}-mobile-number">
+      <label>
+        <span class="{{ classPrefix }}-label">
+          {{{ areaCodeLabel }}}
+        </span>
+        <input class="{{ classPrefix }}-area-code" type=tel
+          placeholder="512"
+          maxlength=3
+          data-pattern="[0-9]{3}"
+          >
+      </label>
+      <label>
+        <span class="{{ classPrefix }}-label">
+          {{{ prefixLabel }}}
+        </span>
+      <input class="{{ classPrefix }}-prefix" type=tel
+        placeholder="555"
+        maxlength=3
+        data-pattern="[0-9]{3}"
+        >
+      </label>
+      <label>
+        <span class="{{ classPrefix }}-label">
+          {{{ lineNoLabel }}}
+        </span>
+        <input class="{{ classPrefix }}-line-no" type=tel
+          placeholder="1234"
+          maxlength=4
+          data-pattern="[0-9]{4}"
+          >
+      </label>
+      <button class='{{ classPrefix }}-submit-btn' type=button>
+        {{ signUpButtonLabel }}
+      </button>
+    </div>
+  </fieldset>
+  <p class='{{ classPrefix }}-result'></p>
+  <p>{{{ ratesWarning }}}</p>
+  <p>{{{ terms }}}</p>
+  <iframe src="{{ subscribeFrameUrl }}"></iframe>
+</div>

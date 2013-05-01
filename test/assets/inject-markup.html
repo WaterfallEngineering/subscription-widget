@@ -1,12 +1,4 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  
-</head>
-<body>
-  <div class="waterfall-subscription-widget"
+<div class="waterfall-subscription-widget"
   data-waterfall-widgetid='abc123'
   >
 </div>
@@ -23,19 +15,3 @@
   data-waterfall-subscribe-frame-url="http://example.com"
   >
 </div>
-<script data-waterfall-widgetid='{{ widgetId }}'>
-/*jshint undef:false */
-(function (window) {
-  var document = window.document;
-  var script = document.createElement('script');
-  var sibling = document.getElementsByTagName('script')[0];
-  script.src = 'waterfall-subscription-widget.scout.js';
-  script.async = true;
-  script.type = 'text/javascript';
-  sibling.parentNode.insertBefore(script, sibling);
-}(this));
-
-</script>
-
-</body>
-</html>

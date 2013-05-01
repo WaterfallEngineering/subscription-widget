@@ -127,38 +127,6 @@ module.exports = function(grunt) {
         }
       },
 
-      'widget': {
-        target: '<%= build.scratchRoot %>/templates/' +
-          'subscription-widget.template.dev.html',
-        source: './src/subscription-widget.template.html',
-        widget: {
-          classPrefix: 'waterfall-subscription-widget',
-          iframeUrl:
-            '//waterfall.com/widget/subscription-widget/subscribe-frame.html'
-        }
-      },
-
-      'widget-test': {
-        target: '<%= build.scratchRoot %>/test/templates/' +
-          'subscription-widget.template.dev.html',
-        source: '<%= render.widget.source %>',
-        widget: {
-          classPrefix: '<%= render.widget.widget.classPrefix %>',
-          iframeUrl: 'subscribe-frame.html'
-        }
-      },
-
-      'widget-test-submit': {
-        target: '<%= build.scratchRoot %>/test-submit/templates/' +
-          'subscription-widget.template.dev.html',
-        source: '<%= render.widget.source %>',
-        widget: {
-          classPrefix: '<%= render.widget.widget.classPrefix %>',
-          iframeUrl:
-            'submit/subscribe-frame.html'
-        }
-      },
-
       'subscribe-frame': {
         target: '<%= build.root %>/subscribe-frame.html',
         source: './src/subscribe-frame.html'
@@ -180,8 +148,7 @@ module.exports = function(grunt) {
         markup: {
           head: '',
           body: '' +
-            '<div class="waterfall-subscription-widget" data-waterfall-widgetid="abc123"></div>' + 
-            '<div class="waterfall-subscription-widget" data-waterfall-widgetid="def456"></div>' + 
+            '<%= grunt.file.read("test/assets/inject-markup.html") %>' +
             '<%= grunt.file.read("test/assets/snippet.html") %>'
         }
       },
@@ -203,8 +170,9 @@ module.exports = function(grunt) {
         markup: {
           head: '',
           body: '' +
-            '<div class="waterfall-subscription-widget"' +
-              'data-waterfall-widgetid=123' +
+            '<div class="waterfall-subscription-widget" ' +
+              'data-waterfall-widgetid=123 ' +
+              'data-waterfall-subscribe-frame-url="submit/subscribe-frame.html"' +
               '>' +
             '</div>' +
             '<%= grunt.file.read("test/assets/submit/snippet.html") %>'
@@ -237,7 +205,8 @@ module.exports = function(grunt) {
 
           paths: {
             templates: '../../build/templates',
-            css: '../../build/css'
+            css: '../../build/css',
+            hogan: '../../lib/hogan.template'
           },
 
           almond: true,
@@ -258,7 +227,8 @@ module.exports = function(grunt) {
 
           paths: {
             templates: '../../build/test/templates',
-            css: '../../build/css'
+            css: '../../build/css',
+            hogan: '../../lib/hogan.template'
           },
 
           almond: true,
@@ -279,7 +249,8 @@ module.exports = function(grunt) {
 
           paths: {
             templates: '../../build/test-submit/templates',
-            css: '../../build/css'
+            css: '../../build/css',
+            hogan: '../../lib/hogan.template'
           },
 
           almond: true,
@@ -289,33 +260,6 @@ module.exports = function(grunt) {
           optimize: 'uglify2'
         }
       }
-    },
-
-    strings: {
-      widget: {
-        mobileNumber: {
-          label: 'Mobile Number:',
-          areaCode: {
-            label: 'Area code'
-          },
-          prefix: {
-            label: 'Prefix'
-          },
-          lineNo: {
-            label: 'Line number'
-          }
-        },
-        signUpButton: {
-          label: 'Sign Up'
-        },
-        ratesWarning: 'Message and Data Rates May Apply',
-        termsAndConditions: 'Service is compatible with most handsets. ' +
-          'To unsubscribe at any time simply ' +
-          'text&nbsp;<strong>STOP</strong>&nbsp;to 67463. For help, please ' +
-          'send&nbsp;<strong>HELP</strong>&nbsp;to 67463 or contact us at ' +
-          'support@msgme.com or 866-251-1200. Message frequency: No more ' +
-          'than 30 message per month.'
-     }
     },
 
     less: {
@@ -366,6 +310,24 @@ module.exports = function(grunt) {
       }
     },
 
+    hogan: {
+      widget: {
+        template: 'src/widget.mustache',
+        output: '<%= build.scratchRoot %>/templates/widget.js',
+        binderName: 'amd'
+      },
+      'widget-test': {
+        template: 'src/widget.mustache',
+        output: '<%= build.scratchRoot %>/test/templates/widget.js',
+        binderName: 'amd'
+      },
+      'widget-test-submit': {
+        template: 'src/widget.mustache',
+        output: '<%= build.scratchRoot %>/test-submit/templates/widget.js',
+        binderName: 'amd'
+      }
+    },
+
     // FIXME: this doesn't really work. use constants defined above
     build: {
       root: './release',
@@ -379,6 +341,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-requirejs');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-hogan');
 
   grunt.registerMultiTask('render', 'Render a static asset from a template.',
     function renderTask() {
@@ -403,7 +366,8 @@ module.exports = function(grunt) {
     'clean',    // blow away build
     'less',     // compile less to css
     'render',   // render snippet and scout
-    'htmlmin',  // minify widget markup
+    //'htmlmin',  // minify widget markup
+    'hogan',    // compile widget template
     'requirejs' // build widget script
   ]);
 

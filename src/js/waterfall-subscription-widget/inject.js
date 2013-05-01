@@ -1,10 +1,11 @@
 /*global define, require */
 define([
   'waterfall-subscription-widget/dom',
-  'text!templates/subscription-widget.template.html',
+  'templates/widget',
+  'waterfall-subscription-widget/default-content',
   'text!css/subscription-widget.css'
 ],
-function (dom, template, styles) {
+function (dom, template, defaultContent, styles) {
   /*global window, document */
   'use strict';
   var id = 0;
@@ -21,11 +22,23 @@ function (dom, template, styles) {
     var i;
 
     var widget;
+    var attr;
+    var context;
+
     for (i = 0; i < widgetEls.length; i++) {
       widget = widgetEls[i];
       widget.id = 'waterfall-subscription-widget-' + id;
 
-      widget.innerHTML = template;
+      // override default content with any data-waterfall attributes
+      context = {};
+      for (var k in defaultContent) {
+        // convert content property name to an attr name
+        attr = 'data-waterfall-' + k.replace(/([A-Z])/g, '-$1').toLowerCase();
+        context[k] = widget.hasAttribute(attr) ?
+          widget.getAttribute(attr) : defaultContent[k]; 
+      }
+
+      widget.innerHTML = template.widget(context);
       dom.qs(widget, 'iframe').src += '#' + widget.id;
       id++;
     }
