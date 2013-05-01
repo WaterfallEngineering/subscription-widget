@@ -180,8 +180,8 @@ module.exports = function(grunt) {
         markup: {
           head: '',
           body: '' +
-            '<div class="waterfall-subscription-widget"></div>' + 
-            '<div class="waterfall-subscription-widget"></div>' + 
+            '<div class="waterfall-subscription-widget" data-waterfall-widgetid="abc123"></div>' + 
+            '<div class="waterfall-subscription-widget" data-waterfall-widgetid="def456"></div>' + 
             '<%= grunt.file.read("test/assets/snippet.html") %>'
         }
       },

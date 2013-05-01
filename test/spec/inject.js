@@ -24,7 +24,6 @@ function (util) {
 
         $(widgets).each(function (i, el) {
           expect(el.innerHTML.length).to.be.greaterThan(0);
-          expect(el.hasAttribute('data-waterfall-listid')).to.be(false);
         });
       });
   });
