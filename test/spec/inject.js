@@ -1,7 +1,8 @@
 define([
-  './util'
+  './util',
+  './assets/default-content.js'
 ],
-function (util) {
+function (util, defaultContent) {
   describe('the snippet', function () {
     var iframe = document.querySelector('iframe');
 
@@ -17,15 +18,41 @@ function (util) {
       expect(styles.length).to.be(1);
     });
 
-    it('should inject the markup in each .waterfall-subscription-widget',
-      function () {
-        var widgets = 
-          iframe.contentDocument.querySelectorAll(util.getWidgetSelector(''));
+    describe('for each .waterfall-subscription-widget', function () {
+      var widgets = 
+        iframe.contentDocument.querySelectorAll(util.getWidgetSelector(''));
 
+      it('should inject the markup', function () {
         $(widgets).each(function (i, el) {
           expect(el.innerHTML.length).to.be.greaterThan(0);
-          expect(el.hasAttribute('data-waterfall-listid')).to.be(false);
         });
       });
+
+      it('should populate the injected markup with default content',
+        function () {
+          var html = iframe.contentDocument.
+            querySelector('[data-waterfall-widgetid="abc123"]').innerHTML;
+          for (var k in defaultContent) {
+            expect(html).to.contain(defaultContent[k]);
+          }
+        });
+
+      it('should override the default content if a data attr is specified',
+        function () {
+          var el = iframe.contentDocument.
+            querySelector('[data-waterfall-widgetid="456def"]');
+          var html = el.innerHTML;
+          var attr;
+
+          for (var k in defaultContent) {
+            attr =
+              'data-waterfall-' + k.replace(/([A-Z])/g, '-$1').toLowerCase();
+
+            if (el.hasAttribute(attr)) {
+              expect(html).to.contain(el.getAttribute(attr));
+            }
+          }
+        });
+    });
   });
 });
