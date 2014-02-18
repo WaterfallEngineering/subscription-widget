@@ -16,7 +16,11 @@ function (util) {
         frameWin = iframe.contentWindow;
         targetFrameWin = frameDoc.querySelector('iframe').contentWindow;
 
-        $(frameWin).on('message', messageSpy);
+        $(frameWin).on('message', function (e) {
+          if (JSON.parse(e.originalEvent.data).type !== 'ping') {
+            messageSpy(e);
+          }
+        });
         done();
       });
     });
@@ -101,6 +105,51 @@ function (util) {
         expect(submitButton.disabled).to.be(true);
       });
 
+      it('waits for the frame to be ready if not', function (done) {
+        var widget = frameDoc.querySelector(util.getWidgetSelector(''));
+        var areaCodeEl =
+          $(widget.querySelector(util.getWidgetSelector('area-code')))[0];
+        var prefixEl =
+          $(widget.querySelector(util.getWidgetSelector('prefix')))[0];
+        var lineNoEl =
+          $(widget.querySelector(util.getWidgetSelector('line-no')))[0];
+        var submitButton =
+          $(widget.querySelector(util.getWidgetSelector('submit-btn')))[0];
+
+        function onReady() {
+          messageSpy.reset();
+
+          $(frameWin).one('message', onSubscribe);
+        }
+
+        function onSubscribe() {
+          var data;
+
+          expect(messageSpy.callCount).to.be(1);
+          data = JSON.parse(messageSpy.firstCall.args[0].originalEvent.data);
+          expect(data.widgetId).to.be('123');
+          expect(data.mobileNumber).to.be(areaCode + prefix + lineNo);
+          done();
+        }
+
+        areaCodeEl.value = areaCode;
+        prefixEl.value = prefix;
+        lineNoEl.value = lineNo;
+        $(submitButton).click();
+
+        Q.delay(100).
+          then(function () {
+            expect(messageSpy.called).to.be(false);
+
+            targetFrameWin.postMessage(JSON.stringify({
+              type: 'ready'
+            }), '*');
+
+            $(frameWin).one('message', onReady);
+          }).
+          fail(done);
+      });
+
       describe('if the frame is ready', function () {
         var widget, areaCodeEl, prefixEl, lineNoEl, submitButton, resultEl;
 
@@ -117,7 +166,14 @@ function (util) {
           resultEl =
             $(widget.querySelector(util.getWidgetSelector('result')))[0];
 
-          function onReady() {
+          function onReady(e) {
+            if (JSON.parse(e.originalEvent.data).type !== 'ready') {
+              // ignore spurious 'ping' messages
+              return;
+            }
+
+            $(frameWin).off('message', onReady);
+
             messageSpy.reset();
             areaCodeEl.value = areaCode;
             prefixEl.value = prefix;
@@ -134,7 +190,7 @@ function (util) {
             type: 'ready'
           }), '*');
 
-          $(frameWin).one('message', onReady);
+          $(frameWin).on('message', onReady);
         });
 
         it('posts the subscription to the frame', function () {
@@ -221,51 +277,6 @@ function (util) {
             expect($(resultEl).text()).to.be('OHNOES');
           });
         });
-      });
-
-      it('waits for the frame to be ready if not', function (done) {
-        var widget = frameDoc.querySelector(util.getWidgetSelector(''));
-        var areaCodeEl =
-          $(widget.querySelector(util.getWidgetSelector('area-code')))[0];
-        var prefixEl =
-          $(widget.querySelector(util.getWidgetSelector('prefix')))[0];
-        var lineNoEl =
-          $(widget.querySelector(util.getWidgetSelector('line-no')))[0];
-        var submitButton =
-          $(widget.querySelector(util.getWidgetSelector('submit-btn')))[0];
-
-        function onReady() {
-          messageSpy.reset();
-
-          $(frameWin).one('message', onSubscribe);
-        }
-
-        function onSubscribe() {
-          var data;
-
-          expect(messageSpy.callCount).to.be(1);
-          data = JSON.parse(messageSpy.firstCall.args[0].originalEvent.data);
-          expect(data.widgetId).to.be('123');
-          expect(data.mobileNumber).to.be(areaCode + prefix + lineNo);
-          done();
-        }
-
-        areaCodeEl.value = areaCode;
-        prefixEl.value = prefix;
-        lineNoEl.value = lineNo;
-        $(submitButton).click();
-
-        Q.delay(100).
-          then(function () {
-            expect(messageSpy.called).to.be(false);
-
-            targetFrameWin.postMessage(JSON.stringify({
-              type: 'ready'
-            }), '*');
-
-            $(frameWin).one('message', onReady);
-          }).
-          fail(done);
       });
     });
   });
