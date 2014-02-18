@@ -30,7 +30,9 @@ function (dom, template, defaultContent, styles) {
       widget.id = 'waterfall-subscription-widget-' + id;
 
       // override default content with any data-waterfall attributes
-      context = {};
+      context = {
+        widgetId: widget.id
+      };
       for (var k in defaultContent) {
         // convert content property name to an attr name
         attr = 'data-waterfall-' + k.replace(/([A-Z])/g, '-$1').toLowerCase();
@@ -39,7 +41,6 @@ function (dom, template, defaultContent, styles) {
       }
 
       widget.innerHTML = template.widget(context);
-      dom.qs(widget, 'iframe').src += '#' + widget.id;
       id++;
     }
   }

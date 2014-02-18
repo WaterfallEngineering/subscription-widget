@@ -19,7 +19,7 @@ function (util, defaultContent) {
     });
 
     describe('for each .waterfall-subscription-widget', function () {
-      var widgets = 
+      var widgets =
         iframe.contentDocument.querySelectorAll(util.getWidgetSelector(''));
 
       it('should inject the markup', function () {
@@ -52,6 +52,15 @@ function (util, defaultContent) {
               expect(html).to.contain(el.getAttribute(attr));
             }
           }
+        });
+
+      it('the submit frame location.hash should match its src (#1)',
+        function () {
+          var el = iframe.contentDocument.
+            querySelector('[data-waterfall-widgetid="issue-1"]');
+          var frameEl = el.querySelector('iframe');
+
+          expect(frameEl.contentWindow.location.hash).to.be('#' + el.id);
         });
     });
   });
